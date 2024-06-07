@@ -2,13 +2,13 @@ from logging.config import fileConfig
 
 
 # must import models to be detected on migrations
-from src.shared.database_shared import Base
-from src.goals.model import *
+from backend.backend.src.shared.database_shared import Base
+from backend.backend.src.goals.model import *
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
-from src.main.settings import get_settings
+from backend.backend.src.main.settings import get_settings
 
 
 settings = get_settings()

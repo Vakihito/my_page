@@ -20,34 +20,59 @@ const l_goals_title = [
   new Goal("goal_6", "year")
 ]
 
-function CreateSingleGoal(goal_object) {
+function CreateGoalTitle(goal_object) {
+  return (
+    <div className='col'>
+      <div id="goal" className="goal rounded bg-white shadow text-black">
+        <h2 className='goal_title' >{goal_object.title}</h2>
+      </div>
+    </div>
+  )
+}
+
+function CreateGoalText(goal_object) {
+  return (
+    <div className='col-8 container-fluid'>
+      <div className='row'>
+        <div class="col-12">
+          <div id="todo" className="todo rounded bg-white shadow text-black">
+            <h4 className='todo_text rounded' >What should I do ?</h4>
+            <h6 className='goal_todo' >{goal_object.todo}</h6>
+          </div>
+        </div>
+      </div>
+      <div className='row'>
+        <div class="col-12">
+          <div id="nottodo" className="not-todo rounded bg-white shadow text-black">
+            <h4 className='nottodo_text rounded' >What will happen if I don't</h4>
+            <h6 className='goal_nottodo' >{goal_object.not_todo}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+function CreateSingleGoal(goal_object, is_even) {
+  const goal_title_object = CreateGoalTitle(goal_object)
+  const goal_texts = CreateGoalText(goal_object)
+  if (is_even) {
+    return (
+      <div className='container'>
+        <div className='row'>
+          {goal_texts}
+          {goal_title_object}
+        </div>
+      </div>
+
+    )
+  }
   return (
     <div className='container'>
       <div className='row'>
-        <div className='col'>
-          <div id="goal" className="goal rounded bg-white shadow text-black">
-            <h6 className='goal_format' >{goal_object.format}</h6>
-            <h2 className='goal_title' >{goal_object.title}</h2>
-          </div>
-        </div>
-        <div className='col-8 container-fluid'>
-          <div className='row'>
-            <div class="col-12">
-              <div id="todo" className="todo rounded bg-white shadow text-black">
-                <h4 className='todo_text rounded' >What should I do ?</h4>
-                <h6 className='goal_todo' >{goal_object.todo}</h6>
-              </div>
-            </div>
-          </div>
-          <div className='row'>
-            <div class="col-12">
-              <div id="nottodo" className="not-todo rounded bg-white shadow text-black">
-                <h4 className='nottodo_text rounded' >What will happen if I don't</h4>
-                <h6 className='goal_nottodo' >{goal_object.not_todo}</h6>
-              </div>
-            </div>
-          </div>
-        </div>
+        {goal_title_object}
+        {goal_texts}
       </div>
     </div>
 
@@ -58,7 +83,7 @@ function GoalList() {
   let l_goals = []
   for (let i = 0; i < l_goals_title.length; i++) {
     const cur_gol_title = l_goals_title[i];
-    const cur_gol_comp = CreateSingleGoal(cur_gol_title);
+    const cur_gol_comp = CreateSingleGoal(cur_gol_title, i % 2);
     l_goals.push(cur_gol_comp);
   }
 

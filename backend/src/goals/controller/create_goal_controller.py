@@ -1,5 +1,5 @@
-from src.goals.service import CreateGoalService
-from src.goals.schema import CreateGoalInputSchema, CreateGoalResponseSchema
+from backend.src.goals.service import CreateGoalService
+from backend.src.goals.schema import CreateGoalInputSchema, CreateGoalResponseSchema
 from starlette import status
 
 from fastapi import APIRouter, Body, Depends

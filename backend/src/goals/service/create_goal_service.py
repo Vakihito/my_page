@@ -1,6 +1,6 @@
-from src.goals.schema import CreateGoalInputSchema, CreateGoalResponseSchema
-from src.goals.model import GoalsModel
-from src.goals.infra import GoalsRepository
+from backend.src.goals.schema import CreateGoalInputSchema, CreateGoalResponseSchema
+from backend.src.goals.model import GoalsModel
+from backend.src.goals.infra import GoalsRepository
 
 
 class CreateGoalService:

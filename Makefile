@@ -1,11 +1,11 @@
 run:
-	poetry run uvicorn src.main.main:app --reload
+	poetry run uvicorn backend.src.main.main:app --reload
 
 check-black:
-	poetry run black src tests --line-length 120 --check
+	poetry run black backend.src tests --line-length 120 --check
 
 fix-black:
-	poetry run black src tests --line-length 120
+	poetry run black backend.src tests --line-length 120
 
 # creates a new migration based on the model changes pass the name as a parameter
 # Ex: make migrate-auto name="create_feedback_table"
@@ -20,3 +20,7 @@ migrate-up:
 # Ex: make migrate-reset version=d5a0c49799af
 migrate-down:
 	poetry run alembic downgrade $(version)
+
+front:
+	cd frontend &&
+	yarn --cwd frontend start

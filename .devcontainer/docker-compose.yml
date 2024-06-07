@@ -16,7 +16,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
-  
+
   postgres:
     image: postgres:14
     networks:
@@ -50,16 +50,16 @@ services:
       - net
     volumes:
       - /workspace/node_modules
-      - /workspace/public
-      - /workspace/str
+      - /workspace/frontend/public
+      - /workspace/frontend/str
       - /var/run/docker.sock:/var/run/docker.sock
     command: sleep infinity
     stdin_open: true
     tty: true
-    
+
 networks:
   net:
     driver: bridge
-  
+
 volumes:
   postgres-data1:

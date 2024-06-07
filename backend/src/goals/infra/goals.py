@@ -5,10 +5,10 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import func, literal_column
 from starlette import status
-from src.goals.schema import CreateGoalInputSchema, CreateGoalResponseSchema
-from src.goals.model import GoalsModel
+from backend.src.goals.schema import CreateGoalInputSchema, CreateGoalResponseSchema
+from backend.src.goals.model import GoalsModel
 from loguru import logger
-from src.main.exceptions import ApplicationException
+from backend.src.main.exceptions import ApplicationException
 
 
 class GoalsRepository:

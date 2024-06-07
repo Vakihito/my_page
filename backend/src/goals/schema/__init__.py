@@ -1,1 +1,4 @@
-from src.goals.schema.goals import CreateGoalInputSchema, CreateGoalResponseSchema
+from backend.src.goals.schema.goals import (
+    CreateGoalInputSchema,
+    CreateGoalResponseSchema,
+)

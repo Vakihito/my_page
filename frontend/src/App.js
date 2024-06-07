@@ -1,9 +1,9 @@
 import './App.css';
-import Profile from '/workspace/src/components/user/user.js';
-import Counter from '/workspace/src/components/counter/counter.js';
-import Navbar from '/workspace/src/components/navbar/navbar.js';
+import Profile from '/workspace/frontend/src/components/user/user.js';
+import Counter from '/workspace/frontend/src/components/counter/counter.js';
+import Navbar from '/workspace/frontend/src/components/navbar/navbar.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Goals from '/workspace/src/components/goals/goals'
+import Goals from '/workspace/frontend/src/components/goals/goals'
 
 function App() {
   const start_day = new Date('2024-01-01');

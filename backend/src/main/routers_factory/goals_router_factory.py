@@ -1,5 +1,5 @@
-import src.goals.factory as goals_factory
-from src.main.routers_factory.routers_factory import RoutersFactory
+import backend.src.goals.factory as goals_factory
+from backend.src.main.routers_factory.routers_factory import RoutersFactory
 
 routers = [
     goals_factory.create_goal_router_factory(),

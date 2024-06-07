@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.main.factory import setup_router_factories
+from backend.src.main.factory import setup_router_factories
 
 app = FastAPI()
 

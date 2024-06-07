@@ -1,6 +1,6 @@
 from fastapi import APIRouter, FastAPI
-from src.main.routers_factory import *
-from src.main.routers_factory.routers_factory import RoutersFactory
+from backend.src.main.routers_factory import *
+from backend.src.main.routers_factory.routers_factory import RoutersFactory
 
 from fastapi import APIRouter
 
