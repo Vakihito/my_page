@@ -24,3 +24,6 @@ migrate-down:
 front:
 	cd frontend &&
 	yarn --cwd frontend start
+
+route:
+	python utils/make_route.py
