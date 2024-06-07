@@ -9,6 +9,7 @@ from backend.src.goals.schema import CreateGoalInputSchema, CreateGoalResponseSc
 from backend.src.goals.model import GoalsModel
 from loguru import logger
 from backend.src.main.exceptions import ApplicationException
+from datetime import date, datetime
 
 
 class GoalsRepository:
@@ -16,6 +17,13 @@ class GoalsRepository:
         self.db = db
 
     def create_goal(self, create_goal_input: CreateGoalInputSchema):
+        create_goal_input.start_date = datetime.strptime(
+            create_goal_input.start_date, "%Y-%m-%d"
+        )
+        create_goal_input.end_date = datetime.strptime(
+            create_goal_input.end_date, "%Y-%m-%d"
+        )
+
         new_goal = GoalsModel(**create_goal_input.model_dump())
         try:
             logger.info("create new goal")
