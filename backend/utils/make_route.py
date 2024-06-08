@@ -309,7 +309,11 @@ class {main_service_cap}RouterFactory(RoutersFactory):
         model_file_content_init,
     )
 else:
-    with open(router_file, "w+") as f:
+    with open(router_file, "r") as f:
         read_router_file = f.read()
     routers = read_router_file.split("routers = [")
     new_routing = f"{routers[0]}routers = [{main_service}_factory.{service_name}_router_factory(), {routers[1]}"
+    write_new_file(
+        router_file,
+        new_routing,
+    )
