@@ -273,7 +273,7 @@ class {service_cased}Service:
     ) -> {service_cased}ResponseSchema:
         self.{service_name}_repository = {service_name}_repository
 
-    def create(
+    def {service_name}(
         self, {service_name}_input: {service_cased}InputSchema
     ) -> {service_cased}ResponseSchema:
         return None
