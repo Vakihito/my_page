@@ -251,26 +251,60 @@ if not os.path.exists(main_folder):
 ##################
 ## create schema ##
 ##################
-if is_file_empty(f"{main_folder}/schema/{main_service}.py"):
-    model_file_content_init = f"""from uuid import UUID
-from datetime import date, datetime
-from pydantic import BaseModel, ConfigDict
+# if is_file_empty(f"{main_folder}/schema/{main_service}.py"):
+#     model_file_content_init = f"""from uuid import UUID
+# from datetime import date, datetime
+# from pydantic import BaseModel, ConfigDict
+# """
+#     write_new_file(f"{main_folder}/schema/{main_service}.py", model_file_content_init)
+
+
+# schema_file_content = f"""
+# class {main_service_cap}InputSchema(BaseModel):
+#     some_data: bool
+
+# class {main_service_cap}ResponseSchema(BaseModel):
+#     created: bool
+
+# """
+
+# write_new_file_a(f"{main_folder}/schema/{main_service}.py", schema_file_content)
+# add_name_to_init(
+#     f"{main_folder}/schema/__init__.py",
+#     f"{main_service}",
+#     f"({main_service_cap}InputSchema, {main_service_cap}ResponseSchema)",
+# )
+
+# create_goal - service_name
+# CreateGoal - service_cased
+# backend.src.goals - pathing_name
+# backend.src - pathing_name_src
+# Goal - main_service_cap
+# goals - main_service
+
+##################
+## create schema ##
+##################
+schema_file_content = f"""from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema
+from {pathing_name}.model import GoalsModel
+from {pathing_name}.infra import GoalsRepository
+
+
+class {service_cased}Service:
+    def __init__(
+        self, {service_name}_repository: GoalsRepository
+    ) -> {service_cased}ResponseSchema:
+        self.{service_name}_repository = {service_name}_repository
+
+    def create(
+        self, {service_name}_input: {service_cased}InputSchema
+    ) -> {service_cased}ResponseSchema:
+        return {service_name}_reseponse
 """
-    write_new_file(f"{main_folder}/schema/{main_service}.py", model_file_content_init)
 
-
-schema_file_content = f"""
-class {main_service_cap}InputSchema(BaseModel):
-    some_data: bool
-
-class {main_service_cap}ResponseSchema(BaseModel):
-    created: bool
-
-"""
-
-write_new_file_a(f"{main_folder}/schema/{main_service}.py", schema_file_content)
+write_new_file(f"{main_folder}/schema/{service_name}_service.py", schema_file_content)
 add_name_to_init(
     f"{main_folder}/schema/__init__.py",
-    f"{main_service}",
-    f"({main_service_cap}InputSchema, {main_service_cap}ResponseSchema)",
+    f"{service_name}_service",
+    f"{service_cased}Service",
 )
