@@ -21,10 +21,6 @@ migrate-up:
 migrate-down:
 	poetry run alembic downgrade $(version)
 
-front:
-	cd frontend &&
-	yarn --cwd frontend start
-
 # create a template for a new route in application backent
 # main - refer to the name of the main subfolder - such as 'goals'
 # service - refer to the specific service that we are creating - like 'update'
