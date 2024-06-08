@@ -26,4 +26,5 @@ front:
 	yarn --cwd frontend start
 
 route:
-	python utils/make_route.py
+	python utils/make_route.py && \
+	poetry run black src --line-length 120

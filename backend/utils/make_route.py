@@ -299,7 +299,7 @@ class {service_cased}Service:
     def create(
         self, {service_name}_input: {service_cased}InputSchema
     ) -> {service_cased}ResponseSchema:
-        return {service_name}_reseponse
+        return None
 """
 
 write_new_file(f"{main_folder}/service/{service_name}_service.py", service_file_content)
