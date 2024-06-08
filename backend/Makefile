@@ -5,7 +5,7 @@ check-black:
 	poetry run black backend.src tests --line-length 120 --check
 
 fix-black:
-	poetry run black backend.src tests --line-length 120
+	poetry run black src --line-length 120
 
 # creates a new migration based on the model changes pass the name as a parameter
 # Ex: make migrate-auto name="create_feedback_table"
