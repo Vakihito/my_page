@@ -54,6 +54,15 @@ def case_string(s):
     return transformed
 
 
+def add_new_import(cur_file, new_import_data):
+    updated_file_data = ""
+    with open(cur_file, "r") as f:
+        file_data = f.read()
+        updated_file_data = f"{new_import_data}\n{file_data}"
+    with open(cur_file, "w+") as f:
+        f.write(updated_file_data)
+
+
 service_cased = case_string(service_name)
 
 if not os.path.exists(main_folder):
@@ -73,63 +82,63 @@ if not os.path.exists(main_folder):
 ########################
 ## create crontroller ##
 ########################
-controller_file_content = f"""from {pathing_name}.service import {service_cased}Service
-from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema
-from starlette import status
-from fastapi import APIRouter, Body, Depends
+# controller_file_content = f"""from {pathing_name}.service import {service_cased}Service
+# from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema
+# from starlette import status
+# from fastapi import APIRouter, Body, Depends
 
 
-class {service_cased}Controller:
-    def __init__(self, {service_name}_service: {service_cased}Service):
-        self.{service_name}_service = {service_name}_service
-        self.router = APIRouter()
-        self.router.add_api_route(
-            "/{service_name}",
-            self.handle,
-            methods=["POST"],
-            status_code=status.HTTP_201_CREATED,
-            response_model={service_cased}ResponseSchema,
-            name="",
-        )
+# class {service_cased}Controller:
+#     def __init__(self, {service_name}_service: {service_cased}Service):
+#         self.{service_name}_service = {service_name}_service
+#         self.router = APIRouter()
+#         self.router.add_api_route(
+#             "/{service_name}",
+#             self.handle,
+#             methods=["POST"],
+#             status_code=status.HTTP_201_CREATED,
+#             response_model={service_cased}ResponseSchema,
+#             name="",
+#         )
 
-    async def handle(self, {service_name}_input: {service_cased}InputSchema):
-        return self.{service_name}_service.{service_name}({service_name}_input)
-"""
+#     async def handle(self, {service_name}_input: {service_cased}InputSchema):
+#         return self.{service_name}_service.{service_name}({service_name}_input)
+# """
 
-write_new_file(
-    f"{main_folder}/controller/{service_name}_controller.py", controller_file_content
-)
-add_name_to_init(
-    f"{main_folder}/controller/__init__.py",
-    f"{service_name}_controller",
-    f"{service_cased}Controller",
-)
+# write_new_file(
+#     f"{main_folder}/controller/{service_name}_controller.py", controller_file_content
+# )
+# add_name_to_init(
+#     f"{main_folder}/controller/__init__.py",
+#     f"{service_name}_controller",
+#     f"{service_cased}Controller",
+# )
 
 ####################
 ## create factory ##
 ####################
-factory_file_content = f"""from fastapi import APIRouter
-from {pathing_name}.service import {service_cased}Service
-from {pathing_name}.controller import {service_cased}Controller
-from {pathing_name}.infra import {main_service_cap}Repository
-from {pathing_name_src}.shared.database_shared import get_db_session
+# factory_file_content = f"""from fastapi import APIRouter
+# from {pathing_name}.service import {service_cased}Service
+# from {pathing_name}.controller import {service_cased}Controller
+# from {pathing_name}.infra import {main_service_cap}Repository
+# from {pathing_name_src}.shared.database_shared import get_db_session
 
-db = next(get_db_session())
+# db = next(get_db_session())
 
 
-def {service_name}_router_factory() -> APIRouter:
-    repository = {main_service_cap}Repository(db)
-    service = {service_cased}Service(repository)
-    controller = {service_cased}Controller(service)
-    return controller.router
-"""
+# def {service_name}_router_factory() -> APIRouter:
+#     repository = {main_service_cap}Repository(db)
+#     service = {service_cased}Service(repository)
+#     controller = {service_cased}Controller(service)
+#     return controller.router
+# """
 
-write_new_file(f"{main_folder}/factory/{service_name}_factory.py", factory_file_content)
-add_name_to_init(
-    f"{main_folder}/factory/__init__.py",
-    f"{service_name}_factory",
-    f"{service_name}_router_factory",
-)
+# write_new_file(f"{main_folder}/factory/{service_name}_factory.py", factory_file_content)
+# add_name_to_init(
+#     f"{main_folder}/factory/__init__.py",
+#     f"{service_name}_factory",
+#     f"{service_name}_router_factory",
+# )
 
 # create_goal - service_name
 # CreateGoal - service_cased
@@ -166,4 +175,8 @@ add_name_to_init(
     f"{main_folder}/infra/__init__.py",
     f"{main_service}",
     f"{service_name}",
+)
+add_new_import(
+    f"{main_folder}/infra/{main_service}.py",
+    f"from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema",
 )
