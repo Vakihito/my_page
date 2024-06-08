@@ -1,1 +1,2 @@
 from .create_goal_service import CreateGoalService
+from .update_goals_service import UpdateGoalsService

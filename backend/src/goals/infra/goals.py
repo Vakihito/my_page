@@ -1,3 +1,4 @@
+from backend.src.goals.schema import UpdateGoalsInputSchema, UpdateGoalsResponseSchema
 from sqlalchemy import and_, distinct
 from sqlalchemy import update as dbUpdate
 from sqlalchemy.dialects.postgresql import insert
@@ -39,3 +40,20 @@ class GoalsRepository:
         logger.info("created new goal")
 
         return new_goal
+
+
+def update_goals(self, update_goals_input: UpdateGoalsInputSchema):
+    try:
+        logger.info("update goals ")
+    except IntegrityError:
+        self.db.rollback()
+        logger.info("error log")
+        return None
+    except SQLAlchemyError:
+        self.db.rollback()
+        raise ApplicationException(status_code=500, key="error doing something")
+    finally:
+        self.db.close()
+
+    logger.info("update goals")
+    return None

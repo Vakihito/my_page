@@ -19,3 +19,11 @@ class CreateGoalInputSchema(BaseModel):
 
 class CreateGoalResponseSchema(BaseModel):
     created: bool
+
+
+class UpdateGoalsInputSchema(BaseModel):
+    some_data: bool
+
+
+class UpdateGoalsResponseSchema(BaseModel):
+    created: bool
