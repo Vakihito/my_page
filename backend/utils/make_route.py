@@ -1,7 +1,12 @@
 import os
+import sys
 
-main_service = "goals"
-service_name = "update"
+print(f"sys.argv : {sys.argv}")
+for i, arg in enumerate(sys.argv):
+    if i == 1:
+        main_service = arg  # "goals"
+    if i == 2:
+        service_name = arg  # "update"
 main_folder = f"/workspace/backend/src/{main_service}"
 
 model_name = main_folder.split("/")[-1]

@@ -25,6 +25,11 @@ front:
 	cd frontend &&
 	yarn --cwd frontend start
 
+# create a template for a new route in application backent
+# main - refer to the name of the main subfolder - such as 'goals'
+# service - refer to the specific service that we are creating - like 'update'
+# Ex: make route main='goals' service='update'
 route:
-	python utils/make_route.py && \
-	poetry run black src --line-length 120
+	poetry run black src --line-length 120 && \
+	python utils/make_route.py $(main) $(service) && \
+	poetry run black src --line-length 120 
