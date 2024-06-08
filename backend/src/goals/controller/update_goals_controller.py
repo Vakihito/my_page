@@ -12,9 +12,9 @@ class UpdateGoalsController:
             "/update_goals",
             self.handle,
             methods=["POST"],
-            status_code=status.HTTP_201_CREATED,
+            status_code=status.HTTP_200_OK,
             response_model=UpdateGoalsResponseSchema,
-            name="",
+            name="Update new goal",
         )
 
     async def handle(self, update_goals_input: UpdateGoalsInputSchema):
