@@ -44,7 +44,7 @@ def update_file(cur_file_path, news_str):
 
 
 def add_name_to_init(init_path, file_name, object_name):
-    new_import = f"\nfrom .{file_name} import {object_name}\n"
+    new_import = f"from .{file_name} import {object_name}\n"
     update_file(init_path, new_import)
 
 
