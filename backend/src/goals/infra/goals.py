@@ -1,4 +1,4 @@
-from backend.src.goals.schema import SearchGoalsInputSchema, SearchGoalsResponseSchema
+from backend.src.goals.schema import SearchGoalsInputSchema, CreateGoalInputSchema
 from backend.src.goals.schema import DeleteGoalsInputSchema, DeleteGoalsResponseSchema
 from backend.src.goals.schema import CreateGoalInputSchema, UpdateGoalsResponseSchema
 from sqlalchemy import and_, distinct, or_
@@ -143,7 +143,7 @@ class GoalsRepository:
         )
 
         try:
-            result = self.db.query(GoalsModel).filter(stm).first()
+            result = self.db.query(GoalsModel).filter(stm).all()
             logger.info("search goals ")
         except IntegrityError:
             self.db.rollback()

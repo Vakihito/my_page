@@ -45,7 +45,3 @@ class DeleteGoalsResponseSchema(BaseModel):
 
 class SearchGoalsInputSchema(BaseModel):
     text_title: str | None = None
-
-
-class SearchGoalsResponseSchema(BaseModel):
-    created: bool

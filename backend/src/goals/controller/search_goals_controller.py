@@ -1,7 +1,8 @@
 from backend.src.goals.service import SearchGoalsService
-from backend.src.goals.schema import SearchGoalsInputSchema, SearchGoalsResponseSchema
+from backend.src.goals.schema import SearchGoalsInputSchema, CreateGoalInputSchema
 from starlette import status
 from fastapi import APIRouter, Body, Depends
+from typing import List, Literal, Optional, Union
 
 
 class SearchGoalsController:
@@ -13,9 +14,9 @@ class SearchGoalsController:
             self.handle,
             methods=["GET"],
             status_code=status.HTTP_200_OK,
-            response_model=SearchGoalsResponseSchema,
+            response_model=List[CreateGoalInputSchema],
             name="",
         )
 
-    async def handle(self, text_title: str):
-        return self.search_goals_service.search_goals(text_title)
+    async def handle(self, text_title: str) -> List[CreateGoalInputSchema]:
+        return self.search_goals_service.search_goals(text_title=text_title)
