@@ -1,10 +1,10 @@
-from uuid import UUID
+from uuid import UUID, uuid4
 from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict, Field
 
 
 class CreateGoalInputSchema(BaseModel):
-    id: UUID
+    id: UUID = uuid4()
     title: str = Field(default=None)
     todo: str = Field(default=None)
     nottodo: str = Field(default=None)
