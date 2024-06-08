@@ -17,12 +17,8 @@ class GoalsRepository:
         self.db = db
 
     def create_goal(self, create_goal_input: CreateGoalInputSchema):
-        create_goal_input.start_date = datetime.strptime(
-            create_goal_input.start_date, "%Y-%m-%d"
-        )
-        create_goal_input.end_date = datetime.strptime(
-            create_goal_input.end_date, "%Y-%m-%d"
-        )
+        create_goal_input.start_date = datetime.strptime(create_goal_input.start_date, "%Y-%m-%d")
+        create_goal_input.end_date = datetime.strptime(create_goal_input.end_date, "%Y-%m-%d")
 
         new_goal = GoalsModel(**create_goal_input.model_dump())
         try:
@@ -36,9 +32,7 @@ class GoalsRepository:
             return None
         except SQLAlchemyError:
             self.db.rollback()
-            raise ApplicationException(
-                status_code=500, key="postgres_keyword_error_to_create"
-            )
+            raise ApplicationException(status_code=500, key="postgres_keyword_error_to_create")
         finally:
             self.db.close()
 
