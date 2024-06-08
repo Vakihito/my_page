@@ -19,3 +19,4 @@ class GoalsModel(Base):
     end_date = Column(DateTime, server_default=text("NOW()"), nullable=True)
     data_format = Column(String, server_default="weaks", nullable=True)
     created_at = Column(DateTime, server_default=text("NOW()"), nullable=True)
+    deleted_at = Column(DateTime, server_default=None, nullable=True)
