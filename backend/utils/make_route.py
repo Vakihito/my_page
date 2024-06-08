@@ -6,8 +6,11 @@ main_folder = f"/workspace/backend/src/{main_service}"
 
 model_name = main_folder.split("/")[-1]
 service_name = f"{service_name}_{model_name}"
+main_service_cap = main_service.capitalize()
 
 pathing_name = ".".join(main_folder.split("/")[2:])
+pathing_name_src = ".".join(main_folder.split("/")[2:-1])
+
 print(f"creatting new {service_name}")
 
 
@@ -93,6 +96,32 @@ write_new_file(
 )
 add_name_to_init(
     f"{main_folder}/controller/__init__.py",
-    f"{service_name}_controller.py",
+    f"{service_name}_controller",
     f"{service_cased}Controller",
+)
+
+####################
+## create factory ##
+####################
+factory_file_content = f"""from fastapi import APIRouter
+from {pathing_name}.service import {service_cased}Service
+from {pathing_name}.controller import {service_cased}Controller
+from {pathing_name}.infra import {main_service_cap}Repository
+from {pathing_name_src}.shared.database_shared import get_db_session
+
+db = next(get_db_session())
+
+
+def {service_name}_router_factory() -> APIRouter:
+    repository = {main_service_cap}Repository(db)
+    service = {service_cased}Service(repository)
+    controller = {service_cased}Controller(service)
+    return controller.router
+"""
+
+write_new_file(f"{main_folder}/factory/{service_name}_factory.py", factory_file_content)
+add_name_to_init(
+    f"{main_folder}/factory/__init__.py",
+    f"{service_name}_factory",
+    f"{service_name}_router_factory",
 )
