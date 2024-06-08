@@ -33,6 +33,11 @@ def write_new_file(cur_file_path, new_data):
         f.write(new_data)
 
 
+def write_new_file_a(cur_file_path, new_data):
+    with open(cur_file_path, "a") as f:
+        f.write(f"\n\n{new_data}")
+
+
 def update_file(cur_file_path, news_str):
     with open(cur_file_path, "a") as f:
         f.write(news_str)
@@ -124,4 +129,41 @@ add_name_to_init(
     f"{main_folder}/factory/__init__.py",
     f"{service_name}_factory",
     f"{service_name}_router_factory",
+)
+
+# create_goal - service_name
+# CreateGoal - service_cased
+# backend.src.goals - pathing_name
+# backend.src - pathing_name_src
+# Goal - main_service_cap
+
+##################
+## create infra ##
+##################
+factory_file_content = f"""
+
+    def {service_name}(self, {service_name}_input: {service_cased}InputSchema):
+        try:
+            logger.info("{' '.join(service_name.split('_'))} ")
+        except IntegrityError:
+            self.db.rollback()
+            logger.info("error log")
+            return None
+        except SQLAlchemyError:
+            self.db.rollback()
+            raise ApplicationException(
+                status_code=500, key="error doing something"
+            )
+        finally:
+            self.db.close()
+
+        logger.info("{' '.join(service_name.split('_'))}")
+        return None
+"""
+
+write_new_file_a(f"{main_folder}/infra/{main_service}.py", factory_file_content)
+add_name_to_init(
+    f"{main_folder}/infra/__init__.py",
+    f"{main_service}",
+    f"{service_name}",
 )
