@@ -278,7 +278,7 @@ class {service_cased}Service:
     ) -> {service_cased}ResponseSchema:
     
 """
-service_file_content += "return \{ created \}"
+service_file_content += """return { created }"""
 write_new_file(f"{main_folder}/service/{service_name}_service.py", service_file_content)
 add_name_to_init(
     f"{main_folder}/service/__init__.py",
