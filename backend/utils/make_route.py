@@ -35,7 +35,7 @@ def write_new_file(cur_file_path, new_data):
 
 def write_new_file_a(cur_file_path, new_data):
     with open(cur_file_path, "a") as f:
-        f.write(f"\n\n{new_data}")
+        f.write(f"\n{new_data}")
 
 
 def update_file(cur_file_path, news_str):
@@ -63,17 +63,32 @@ def add_new_import(cur_file, new_import_data):
         f.write(updated_file_data)
 
 
+def is_file_empty(cur_file):
+    file_data = ""
+    with open(cur_file, "r") as f:
+        file_data = f.read()
+    if len(file_data) == 0:
+        return True
+    return False
+
+
 service_cased = case_string(service_name)
 
 if not os.path.exists(main_folder):
     create_folder(f"{main_folder}/controller")
     create_file(f"{main_folder}/controller/__init__.py")
+
     create_folder(f"{main_folder}/factory")
     create_file(f"{main_folder}/factory/__init__.py")
+
     create_folder(f"{main_folder}/infra")
     create_file(f"{main_folder}/infra/__init__.py")
+    create_file(f"{main_folder}/infra/{main_service}.py")
+
     create_folder(f"{main_folder}/model")
     create_file(f"{main_folder}/model/__init__.py")
+    create_file(f"{main_folder}/model/{main_service}.py")
+
     create_folder(f"{main_folder}/schema")
     create_file(f"{main_folder}/schema/__init__.py")
     create_folder(f"{main_folder}/service")
@@ -149,34 +164,113 @@ if not os.path.exists(main_folder):
 ##################
 ## create infra ##
 ##################
-factory_file_content = f"""
+# if is_file_empty(f"{main_folder}/infra/{main_service}.py"):
+#     factory_file_content_init = f"""from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+# from sqlalchemy.orm import Session
+# from sqlalchemy.sql import func, literal_column
+# from starlette import status
+# from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema
+# from {pathing_name}.model import {main_service_cap}Model
+# from loguru import logger
+# from {pathing_name_src}.main.exceptions import ApplicationException
+# from datetime import date, datetime
 
-    def {service_name}(self, {service_name}_input: {service_cased}InputSchema):
-        try:
-            logger.info("{' '.join(service_name.split('_'))} ")
-        except IntegrityError:
-            self.db.rollback()
-            logger.info("error log")
-            return None
-        except SQLAlchemyError:
-            self.db.rollback()
-            raise ApplicationException(
-                status_code=500, key="error doing something"
-            )
-        finally:
-            self.db.close()
 
-        logger.info("{' '.join(service_name.split('_'))}")
-        return None
+# class {main_service_cap}Repository:
+#     def __init__(self, db: Session):
+#         self.db = db
+# """
+#     write_new_file_a(
+#         f"{main_folder}/infra/{main_service}.py", factory_file_content_init
+#     )
+
+# factory_file_content = f"""def {service_name}(self, {service_name}_input: {service_cased}InputSchema):
+#         try:
+#             logger.info("{' '.join(service_name.split('_'))} ")
+#         except IntegrityError:
+#             self.db.rollback()
+#             logger.info("error log")
+#             return None
+#         except SQLAlchemyError:
+#             self.db.rollback()
+#             raise ApplicationException(
+#                 status_code=500, key="error doing something"
+#             )
+#         finally:
+#             self.db.close()
+
+#         logger.info("{' '.join(service_name.split('_'))}")
+#         return None
+# """
+
+# write_new_file_a(f"{main_folder}/infra/{main_service}.py", factory_file_content)
+# add_name_to_init(
+#     f"{main_folder}/infra/__init__.py",
+#     f"{main_service}",
+#     f"{service_name}",
+# )
+# add_new_import(
+#     f"{main_folder}/infra/{main_service}.py",
+#     f"from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema",
+# )
+
+
+# create_goal - service_name
+# CreateGoal - service_cased
+# backend.src.goals - pathing_name
+# backend.src - pathing_name_src
+# Goal - main_service_cap
+# goals - main_service
+
+##################
+## create model ##
+##################
+# if is_file_empty(f"{main_folder}/model/{main_service}.py"):
+#     model_file_content_init = f"""from {pathing_name_src}.shared.database_shared import Base
+# from sqlalchemy.dialects.postgresql import UUID
+# from sqlalchemy import (
+#     Column,
+#     String,
+#     DateTime,
+#     text,
+# )
+
+
+# class GoalsModel(Base):
+#     __tablename__ = "{main_service}"
+# """
+#     write_new_file(f"{main_folder}/model/{main_service}.py", model_file_content_init)
+
+# create_goal - service_name
+# CreateGoal - service_cased
+# backend.src.goals - pathing_name
+# backend.src - pathing_name_src
+# Goal - main_service_cap
+# goals - main_service
+
+##################
+## create schema ##
+##################
+if is_file_empty(f"{main_folder}/schema/{main_service}.py"):
+    model_file_content_init = f"""from uuid import UUID
+from datetime import date, datetime
+from pydantic import BaseModel, ConfigDict
+"""
+    write_new_file(f"{main_folder}/schema/{main_service}.py", model_file_content_init)
+
+
+schema_file_content = f"""
+class {main_service_cap}InputSchema(BaseModel):
+    some_data: bool
+
+class {main_service_cap}ResponseSchema(BaseModel):
+    created: bool
+
 """
 
-write_new_file_a(f"{main_folder}/infra/{main_service}.py", factory_file_content)
+write_new_file_a(f"{main_folder}/schema/{main_service}.py", schema_file_content)
 add_name_to_init(
-    f"{main_folder}/infra/__init__.py",
+    f"{main_folder}/schema/__init__.py",
     f"{main_service}",
-    f"{service_name}",
-)
-add_new_import(
-    f"{main_folder}/infra/{main_service}.py",
-    f"from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema",
+    f"({main_service_cap}InputSchema, {main_service_cap}ResponseSchema)",
 )
