@@ -1,5 +1,5 @@
 from backend.src.goals.service import UpdateGoalsService
-from backend.src.goals.schema import UpdateGoalsInputSchema, UpdateGoalsResponseSchema
+from backend.src.goals.schema import CreateGoalInputSchema, UpdateGoalsResponseSchema
 from starlette import status
 from fastapi import APIRouter, Body, Depends
 
@@ -17,5 +17,5 @@ class UpdateGoalsController:
             name="Update new goal",
         )
 
-    async def handle(self, update_goals_input: UpdateGoalsInputSchema):
+    async def handle(self, update_goals_input: CreateGoalInputSchema):
         return self.update_goals_service.update_goals(update_goals_input)

@@ -186,8 +186,14 @@ class {main_service_cap}Repository:
     write_new_file_a(
         f"{main_folder}/infra/{main_service}.py", factory_file_content_init
     )
+    add_name_to_init(
+        f"{main_folder}/infra/__init__.py",
+        f"{main_service}",
+        f"{main_service_cap}Repository",
+    )
 
-factory_file_content = f"""def {service_name}(self, {service_name}_input: {service_cased}InputSchema):
+factory_file_content = f"""
+    def {service_name}(self, {service_name}_input: {service_cased}InputSchema):
         try:
             logger.info("{' '.join(service_name.split('_'))} ")
         except IntegrityError:
@@ -207,11 +213,6 @@ factory_file_content = f"""def {service_name}(self, {service_name}_input: {servi
 """
 
 write_new_file_a(f"{main_folder}/infra/{main_service}.py", factory_file_content)
-add_name_to_init(
-    f"{main_folder}/infra/__init__.py",
-    f"{main_service}",
-    f"{service_name}",
-)
 add_new_import(
     f"{main_folder}/infra/{main_service}.py",
     f"from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema",

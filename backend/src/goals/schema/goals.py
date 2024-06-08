@@ -1,29 +1,34 @@
 from uuid import UUID
 from datetime import date, datetime
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class CreateGoalInputSchema(BaseModel):
     id: UUID
-    title: str
-    todo: str
-    nottodo: str
-    start_date: datetime = datetime.strptime("2024-06-07", "%Y-%m-%d")
-    end_date: datetime = datetime.strptime("2024-06-20", "%Y-%m-%d")
-    data_format: str = "weaks"
-    model_config = ConfigDict(
-        id="00000000-0000-0000-0000-000000000000",
-        title="cool little text",
-    )
+    title: str = Field(default=None)
+    todo: str = Field(default=None)
+    nottodo: str = Field(default=None)
+    start_date: datetime = Field(default=None)
+    end_date: datetime = Field(default=None)
+    data_format: str = Field(default=None)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "keyword_hash": "keyword_hash",
+                "title": "title",
+                "todo": "todo",
+                "nottodo": "notodo",
+                "start_date": "2024-06-07",
+                "end_date": "2024-06-07",
+                "data_format": "weaks",
+            }
+        }
 
 
 class CreateGoalResponseSchema(BaseModel):
     created: bool
 
 
-class UpdateGoalsInputSchema(BaseModel):
-    some_data: bool
-
-
 class UpdateGoalsResponseSchema(BaseModel):
-    created: bool
+    updated: bool
