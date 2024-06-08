@@ -285,7 +285,7 @@ if not os.path.exists(main_folder):
 ##################
 ## create schema ##
 ##################
-schema_file_content = f"""from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema
+service_file_content = f"""from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema
 from {pathing_name}.model import GoalsModel
 from {pathing_name}.infra import GoalsRepository
 
@@ -302,9 +302,9 @@ class {service_cased}Service:
         return {service_name}_reseponse
 """
 
-write_new_file(f"{main_folder}/schema/{service_name}_service.py", schema_file_content)
+write_new_file(f"{main_folder}/service/{service_name}_service.py", service_file_content)
 add_name_to_init(
-    f"{main_folder}/schema/__init__.py",
+    f"{main_folder}/service/__init__.py",
     f"{service_name}_service",
     f"{service_cased}Service",
 )
