@@ -244,10 +244,10 @@ from pydantic import BaseModel, ConfigDict
 
 
 schema_file_content = f"""
-class {main_service_cap}InputSchema(BaseModel):
+class {service_cased}InputSchema(BaseModel):
     some_data: bool
 
-class {main_service_cap}ResponseSchema(BaseModel):
+class {service_cased}ResponseSchema(BaseModel):
     created: bool
 
 """
@@ -260,7 +260,7 @@ add_name_to_init(
 )
 
 ##################
-## create schema ##
+## create service ##
 ##################
 service_file_content = f"""from {pathing_name}.schema import {service_cased}InputSchema, {service_cased}ResponseSchema
 from {pathing_name}.model import GoalsModel
