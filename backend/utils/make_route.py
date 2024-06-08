@@ -256,7 +256,7 @@ write_new_file_a(f"{main_folder}/schema/{main_service}.py", schema_file_content)
 add_name_to_init(
     f"{main_folder}/schema/__init__.py",
     f"{main_service}",
-    f"({main_service_cap}InputSchema, {main_service_cap}ResponseSchema)",
+    f"({service_cased}InputSchema, {service_cased}ResponseSchema)",
 )
 
 ##################
