@@ -1,3 +1,4 @@
+from backend.src.goals.schema import DeleteGoalsInputSchema, DeleteGoalsResponseSchema
 from backend.src.goals.schema import CreateGoalInputSchema, UpdateGoalsResponseSchema
 from sqlalchemy import and_, distinct
 from sqlalchemy import update as dbUpdate
@@ -80,3 +81,55 @@ class GoalsRepository:
 
         logger.info("update goals")
         return result
+
+    def delete_goals(self, delete_goals_input: DeleteGoalsInputSchema):
+        current_datetime = datetime.now()
+        formatted_datetime = current_datetime.strftime("%Y-%m-%d")
+        stmt = (
+            dbUpdate(GoalsModel)
+            .where(GoalsModel.id == delete_goals_input.id)
+            .values(deleted_at=formatted_datetime)
+        )
+        try:
+            logger.info("delete goals")
+            self.db.execute(stmt)
+            self.db.flush()
+            self.db.commit()
+        except IntegrityError:
+            self.db.rollback()
+            logger.info("error log")
+            return None
+        except SQLAlchemyError:
+            self.db.rollback()
+            raise ApplicationException(status_code=500, key="error doing something")
+        finally:
+            self.db.close()
+
+        logger.info("delete goals")
+        return None
+
+    def delete_goals_hard(self, delete_goals_input: DeleteGoalsInputSchema):
+
+        try:
+            logger.info("delete goals hard")
+            # first find the data to delete
+            result = (
+                self.db.query(GoalsModel)
+                .filter(GoalsModel.id == delete_goals_input.id)
+                .first()
+            )
+            self.db.delete(result)
+            self.db.flush()
+            self.db.commit()
+        except IntegrityError:
+            self.db.rollback()
+            logger.info("error log")
+            return None
+        except SQLAlchemyError:
+            self.db.rollback()
+            raise ApplicationException(status_code=500, key="error doing something")
+        finally:
+            self.db.close()
+
+        logger.info("delete goals hard")
+        return None

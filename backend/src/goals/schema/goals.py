@@ -13,7 +13,7 @@ class CreateGoalInputSchema(BaseModel):
     data_format: str = Field(default=None)
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "keyword_hash": "keyword_hash",
                 "title": "title",
@@ -32,3 +32,12 @@ class CreateGoalResponseSchema(BaseModel):
 
 class UpdateGoalsResponseSchema(BaseModel):
     updated: bool
+
+
+class DeleteGoalsInputSchema(BaseModel):
+    id: UUID
+    is_soft: bool = True
+
+
+class DeleteGoalsResponseSchema(BaseModel):
+    deleted: bool

@@ -1,2 +1,3 @@
 from .create_goal_controller import CreateGoalController
 from .update_goals_controller import UpdateGoalsController
+from .delete_goals_controller import DeleteGoalsController

@@ -3,3 +3,4 @@ from backend.src.goals.schema.goals import (
     CreateGoalResponseSchema,
 )
 from .goals import CreateGoalInputSchema, UpdateGoalsResponseSchema
+from .goals import DeleteGoalsInputSchema, DeleteGoalsResponseSchema
