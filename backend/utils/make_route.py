@@ -94,6 +94,10 @@ if not os.path.exists(main_folder):
     create_folder(f"{main_folder}/service")
     create_file(f"{main_folder}/service/__init__.py")
 
+    create_file(
+        f"/workspace/backend/src/main/routers_factory/{main_service}_router_factory.py"
+    )
+
 ########################
 ## create crontroller ##
 ########################
@@ -223,7 +227,7 @@ from sqlalchemy import (
 )
 
 
-class GoalsModel(Base):
+class {main_service_cap}Model(Base):
     __tablename__ = "{main_service}"
 """
     write_new_file(f"{main_folder}/model/{main_service}.py", model_file_content_init)
@@ -281,3 +285,31 @@ add_name_to_init(
     f"{service_name}_service",
     f"{service_cased}Service",
 )
+
+##########################
+## add new route factory ##
+##########################
+router_file = (
+    f"/workspace/backend/src/main/routers_factory/{main_service}_router_factory.py"
+)
+if is_file_empty(router_file):
+    model_file_content_init = f"""import {pathing_name}.factory as {main_service}_factory
+from {pathing_name_src}.main.routers_factory.routers_factory import RoutersFactory
+
+routers = [
+    {main_service}_factory.{service_name}_router_factory(),
+]
+
+class {main_service_cap}RouterFactory(RoutersFactory):
+    def __init__(self) -> None:
+        super().__init__(routers, prefix="/{main_service}", tags=["{main_service_cap}"])
+"""
+    write_new_file(
+        router_file,
+        model_file_content_init,
+    )
+else:
+    with open(router_file, "w+") as f:
+        read_router_file = f.read()
+    routers = read_router_file.split("routers = [")
+    new_routing = f"{routers[0]}routers = [{main_service}_factory.{service_name}_router_factory(), {routers[1]}"
