@@ -42,7 +42,8 @@
 		5432,
 		5433,
 		9200,
-		5173
+		5173,
+		3000
 	],
 	// "postCreateCommand": "poetry install",
 	"remoteUser": "root",

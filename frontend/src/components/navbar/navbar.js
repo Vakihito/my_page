@@ -23,9 +23,9 @@ function navBarLinks() {
 
 function navBarSearch() {
   return (<div class="input-group">
-  <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" />
-  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-</div>)
+    <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" />
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+  </div>)
 }
 
 
@@ -48,7 +48,7 @@ export default function Navbar() {
         <div class="col-3">
           {nav_bar_search}
         </div>
-        
+
       </nav>
     </>
   );

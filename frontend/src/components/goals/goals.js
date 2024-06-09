@@ -14,11 +14,19 @@ class Goal {
 
 const l_goals_title = [
   new Goal("goal_1", "weak"),
-  new Goal("goal_2", "month"),
-  new Goal("goal_3", "month"),
-  new Goal("goal_6", "year"),
-  new Goal("goal_6", "year")
+  new Goal("goal_2", "month")
 ]
+
+function CreateGoalButton() {
+  return (
+    <div>
+      <button class="btn btn-outline-secondary" type="button" id="create-goal">Button</button>
+      <button class="btn btn-outline-secondary" type="button" id="create-goal">Button</button>
+
+    </div>
+
+  )
+}
 
 function CreateGoalTitle(goal_object) {
   return (
@@ -92,10 +100,14 @@ function GoalList() {
 
 function Goals() {
   const goals_list = GoalList()
+  const create_goal_button = CreateGoalButton()
   return (<>
     <div id="dotsDiv" className="container container_flex_sb">
       <div className="row goal_list">
         {goals_list}
+      </div>
+      <div>
+        {create_goal_button}
       </div>
     </div>
   </>)
