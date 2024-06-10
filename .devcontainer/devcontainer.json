@@ -2,13 +2,28 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
 	"name": "My_application",
-	"service": "app",
+	"service": "front-app",
 	"initializeCommand": "dir",
 	"dockerComposeFile": "docker-compose.yml",
+	"portsAttributes": {
+		"3000": {
+			"label": "Frontend Port",
+			"onAutoForward": "notify"
+		},
+		"5000": {
+			"label": "Backend Port",
+			"onAutoForward": "notify"
+		}
+	},
+	"remoteEnv": {
+		"FRONTEND_URL": "http://localhost:3000",
+		"BACKEND_URL": "http://localhost:8000"
+	},
 	"workspaceFolder": "/workspace",
 	"workspaceMount": "source=${localWorkspaceFolder}/sub-folder,target=/workspace,type=bind,consistency=delegated",
 	"settings": {
 		"python.defaultInterpreterPath": "/usr/local/bin/python",
+		"terminal.integrated.shell.linux": "/bin/bash",
 		"python.linting.enabled": true,
 		"editor.tabSize": 2,
 		"[python]": {
@@ -43,7 +58,8 @@
 		5433,
 		9200,
 		5173,
-		3000
+		3000,
+		8000
 	],
 	// "postCreateCommand": "poetry install",
 	"remoteUser": "root",

@@ -49,9 +49,9 @@ services:
     networks:
       - net
     volumes:
-      - /workspace/node_modules
-      - /workspace/frontend/public
-      - /workspace/frontend/str
+      - ./frontend:/workspace/frontend
+      - ./frontend/public:/workspace/frontend/public
+      - ./frontend/src:/workspace/frontend/src
       - /var/run/docker.sock:/var/run/docker.sock
     command: sleep infinity
     stdin_open: true
@@ -63,3 +63,5 @@ networks:
 
 volumes:
   postgres-data1:
+
+

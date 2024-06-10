@@ -9,10 +9,10 @@ RUN apt-get update && \
 
 # Install Node.js 22.1.0 and npm 10.7.0
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
-apt-get install -y nodejs=22.1.0-1nodesource1 && \
-npm install -g npm@10.7.0 && \
-apt-get clean && \
-rm -rf /var/lib/apt/lists/*
+    apt-get install -y nodejs=22.1.0-1nodesource1 && \
+    npm install -g npm@10.7.0 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 
 
@@ -46,7 +46,11 @@ WORKDIR /workspace
 
 ENV PYTHONPATH /workspace
 
-COPY . ./workspace
+COPY ./frontend /workspace/frontend
+
+COPY ./backend /workspace/backend
+
+COPY . .
 
 EXPOSE 3000
 
