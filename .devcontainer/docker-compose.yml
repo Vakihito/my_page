@@ -49,6 +49,7 @@ services:
     networks:
       - net
     volumes:
+      - ./:/workspace 
       - ./frontend:/workspace/frontend
       - ./frontend/public:/workspace/frontend/public
       - ./frontend/src:/workspace/frontend/src
