@@ -15,7 +15,6 @@ class CreateGoalInputSchema(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "keyword_hash": "keyword_hash",
                 "title": "title",
                 "todo": "todo",
                 "nottodo": "notodo",
