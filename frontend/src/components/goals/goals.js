@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './goals.css'
+import axiosInstance from 'workspace/src/api/index';
 
 class Goal {
   constructor(title, format) {
@@ -17,12 +18,22 @@ const l_goals_title = [
   new Goal("goal_2", "month")
 ]
 
+
 function CreateGoalButton() {
+  const create_new_goal = (event) => {
+    const goalData = {
+      "data_format": "weaks",
+      "nottodo": "",
+      "title": "",
+      "todo": ""
+    }
+    const response = axiosInstance.post('/goal/create_goal', goalData)
+    console.log("response: ", response)
+  }
+
   return (
     <div>
-      <button class="btn btn-outline-secondary" type="button" id="create-goal">Button</button>
-      <button class="btn btn-outline-secondary" type="button" id="create-goal">Button</button>
-
+      <button class="btn btn-outline-secondary" type="button" id="create-goal" onClick={create_new_goal}>Button</button>
     </div>
 
   )
